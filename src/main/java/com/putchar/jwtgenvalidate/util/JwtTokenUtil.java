@@ -42,6 +42,7 @@ public class JwtTokenUtil implements Serializable
 		return claimsResolver.apply(claims);
 	}
 
+	//get JWT body values by the secret key
 	private Claims getAllClaimsFromToken(String token)
 	{
 		return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
