@@ -36,7 +36,7 @@ public class JwtAuthenticationController
 	{
 		System.out.println("createAuthenticationToken");
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-		
+		System.out.println("authenticated");
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		return ResponseEntity.ok(new JwtResponse(token));
@@ -49,16 +49,16 @@ public class JwtAuthenticationController
 		return ResponseEntity.ok(userDetailsService.save(request));
 	}
 	
-	private void authenticate(String username, String password) throws Exception 
-	{
-		
+	private void authenticate(String username, String password) {
 		try 
 		{
+			System.out.println("username : "+username);
+			System.out.println("password : "+password);
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 		}
-		catch (DisabledException e) 
+		catch (Exception e) 
 		{
-			throw new Exception("USER DISABLED ",e);
+			e.printStackTrace();
 		}
 	}
 }

@@ -27,18 +27,19 @@ public class JwtuserDetailsService implements UserDetailsService
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
 	{
+		System.out.println("loadUserByUsername : "+username);
+		LoginUser user = userRepository.findByUsername(username);
 		
-		
-		
-		if("test_user".equals(username)) 
+		if(user != null) 
 		{
-			return new User("test_user", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6", 
+			return new User(user.getUsername(), user.getPassword(), 
 					new ArrayList<>());
 		}
 		else 
 		{
 			throw new UsernameNotFoundException("User not found with username : "+username);
 		}
+			
 	}
 	
 	

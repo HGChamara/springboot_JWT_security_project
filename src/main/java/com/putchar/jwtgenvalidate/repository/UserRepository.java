@@ -8,5 +8,5 @@ import com.putchar.jwtgenvalidate.model.LoginUser;
 @Repository
 public interface UserRepository  extends CrudRepository<LoginUser, Integer>
 {
-
+	LoginUser findByUsername(String username);
 }
